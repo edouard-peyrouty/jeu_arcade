@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://brr4kdblo4cx"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_fgvgo"]
+[ext_resource type="Texture2D" uid="uid://b04r8y4sm2h6e" path="res://chat_bouche_fermee.png" id="1_onkux"]
+[ext_resource type="Texture2D" uid="uid://c4u13suwwywro" path="res://chat_bouche_ouverte.png" id="3_x1mfu"]
+[ext_resource type="AudioStream" uid="uid://215nr4sujyqt" path="res://Son/WapWap.ogg" id="4_nyjx2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4d3rj"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfyxw"]
+bg_color = Color(0.273821, 0.57992, 3.65794e-06, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_fgvgo")
+texture_bouche_fermee = ExtResource("1_onkux")
+texture_bouche_ouverte = ExtResource("3_x1mfu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-20.75, 20.75)
+scale = Vector2(0.717687, 0.784974)
+texture = ExtResource("1_onkux")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-23.6954, 22.1237)
+scale = Vector2(0.795377, 0.852607)
+polygon = PackedVector2Array(-51, -89, -15, -68, 10, -75, 29, -73, 48, -93, 62, -80, 62, -49, 74, -34, 69, -15, 60, 3, 69, 60, 68, 92, -72, 94, -51, 47, -30, 0, -53, -65)
+
+[node name="timer_bouche_ouverte" type="Timer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 27.0
+offset_top = 76.0
+offset_right = 73.0
+offset_bottom = 87.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4d3rj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sfyxw")
+max_value = 1.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioBouche" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nyjx2")
+volume_db = 6.5
+
+[connection signal="timeout" from="timer_bouche_ouverte" to="." method="_on_timer_bouche_ouverte_timeout"]

@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://bj5owikqrwl4q"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_8c823"]
+[ext_resource type="AudioStream" uid="uid://cdj48mdy6vcrw" path="res://Son/Samuel Barber - Adagio for Strings.mp3" id="2_sptc8"]
+
+[sub_resource type="Gradient" id="Gradient_dojq3"]
+offsets = PackedFloat32Array(0.607143, 0.869048)
+colors = PackedColorArray(0.647059, 0.309804, 0.482353, 1, 0.647603, 0.311013, 0.481738, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n6t34"]
+gradient = SubResource("Gradient_dojq3")
+
+[sub_resource type="LabelSettings" id="LabelSettings_nbsw3"]
+font_size = 60
+font_color = Color(0.160509, 2.38488e-05, 0.167495, 1)
+
+[sub_resource type="Theme" id="Theme_x7ift"]
+default_font_size = 30
+
+[sub_resource type="Theme" id="Theme_l4cyf"]
+default_font_size = 30
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = 11.0
+offset_right = -68.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8c823")
+
+[node name="MusicBackGround" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(667, 538)
+stream = ExtResource("2_sptc8")
+volume_db = 13.929
+autoplay = true
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -737.0
+offset_top = -28.0
+offset_right = 872.0
+offset_bottom = 916.0
+grow_horizontal = 2
+texture = SubResource("GradientTexture1D_n6t34")
+
+[node name="Titre" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.0
+offset_top = -273.0
+offset_right = 293.0
+offset_bottom = -177.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MENU PRINCIPAL"
+label_settings = SubResource("LabelSettings_nbsw3")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -121.0
+offset_right = 233.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="StartBtn" type="Button" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_x7ift")
+text = "Partie infinie"
+
+[node name="BtnStartTimed" type="Button" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Partie chronométré"
+
+[node name="QuitBtn" type="Button" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_l4cyf")
+text = "Quitter le jeu"
+
+[connection signal="button_down" from="Background/VBoxContainer/StartBtn" to="." method="_on_start_btn_button_down"]
+[connection signal="button_down" from="Background/VBoxContainer/BtnStartTimed" to="." method="_on_btn_start_timed_button_down"]
+[connection signal="button_down" from="Background/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_button_down"]

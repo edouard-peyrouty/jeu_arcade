@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://clinmvqndwiou"]
+
+[ext_resource type="Script" path="res://game_overTimed.gd" id="1_7nrib"]
+[ext_resource type="Texture2D" uid="uid://de7tfi1grvq4t" path="res://background.jpg" id="2_k4ecu"]
+[ext_resource type="AudioStream" uid="uid://bkttxs2f1fflg" path="res://Son/Yeahhh.ogg" id="3_an7hs"]
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7nrib")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(717, 315)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_k4ecu")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 7.0
+offset_right = -2.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Chronomètre terminé 
+				Bravo"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Press [space] to continue"
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_an7hs")
+volume_db = 6.525
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

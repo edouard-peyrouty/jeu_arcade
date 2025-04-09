@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3nirqf4kscdw"]
+
+[ext_resource type="Texture2D" uid="uid://4qi0h1uve6t6" path="res://cookie.png" id="2_0syji"]
+
+[sub_resource type="GDScript" id="GDScript_044dr"]
+script/source = "extends Area2D
+
+signal collision
+
+@export var vitesse := 300
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var rng = RandomNumberGenerator.new()
+	var width = get_viewport().get_visible_rect().size[0]
+	var random_x = rng.randi_range(50, width-50)
+	position = Vector2(random_x, 0)
+	$Sprite2D.modulate = Color(0, 1, 0)  # Vert
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	position.y += vitesse * delta
+
+# gère les cookies qui entrent alors que la bouche est ouverte
+func _on_body_entered(body: Node2D) -> void:
+	# La collision entre le cookie et le chat ne marche que si ce dernier a la bouche ouverte
+	if(body.can_eat):
+		collision.emit()
+		# le cookie disparait
+		self.queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8msn5"]
+radius = 19.105
+
+[node name="cookie" type="Area2D"]
+script = SubResource("GDScript_044dr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_0syji")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8msn5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

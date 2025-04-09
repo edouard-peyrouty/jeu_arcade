@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3age1oigs3ef"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_0cgo0"]
+[ext_resource type="Texture2D" uid="uid://de7tfi1grvq4t" path="res://background.jpg" id="1_cx8w2"]
+[ext_resource type="PackedScene" uid="uid://db1qsmo8x4iqh" path="res://menu_pause.tscn" id="2_2wd4b"]
+[ext_resource type="PackedScene" uid="uid://brr4kdblo4cx" path="res://player.tscn" id="2_flebn"]
+[ext_resource type="PackedScene" uid="uid://d3taotugwt3ps" path="res://ui.tscn" id="4_dn3jg"]
+[ext_resource type="AudioStream" uid="uid://b04eq8l3msl5" path="res://Son/manger.ogg" id="6_g6x1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v35l2"]
+size = Vector2(204, 383)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jg8w"]
+size = Vector2(274, 481)
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_0cgo0")
+
+[node name="Menu_pause" parent="." instance=ExtResource("2_2wd4b")]
+process_mode = 3
+visible = false
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(717, 315)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_cx8w2")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_flebn")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-105, 526)
+shape = SubResource("RectangleShape2D_v35l2")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1558, 475)
+shape = SubResource("RectangleShape2D_4jg8w")
+
+[node name="Timer_cookies" type="Timer" parent="."]
+autostart = true
+
+[node name="cookies" type="Node2D" parent="."]
+
+[node name="bombes" type="Node2D" parent="."]
+
+[node name="Timer_bombes" type="Timer" parent="."]
+autostart = true
+
+[node name="CanvasLayer" parent="." instance=ExtResource("4_dn3jg")]
+
+[node name="eatCookie" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_g6x1b")
+volume_db = 5.571
+
+[connection signal="timeout" from="Timer_cookies" to="." method="_on_timer_cookies_timeout"]
+[connection signal="timeout" from="Timer_bombes" to="." method="_on_timer_bombes_timeout"]
